@@ -1,4 +1,3 @@
-#import bs4
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -8,14 +7,16 @@ driver.get("https://www.linkedin.com")
 def login():
     username = driver.find_element_by_id("session_key")
     username.clear()
-    username.send_keys("lukeyaxley21@gmail.com")
-
+    usernameinp = input("What is your username?")
+    username.send_keys(usernameinp)
     password = driver.find_element_by_name("session_password")
     password.clear()
-    password.send_keys("Toa12345")
+    passwordinp = input("What is your password?")
+    password.send_keys(passwordinp)
     driver.find_element_by_class_name("sign-in-form__submit-button").click()
     driver.get("https://www.linkedin.com/mynetwork/")
     driver.maximize_window()
+
 
 def main():
     clicked_buttons = []
@@ -29,7 +30,6 @@ def main():
     time.sleep(1)
     driver.refresh()
 
-#def main():
 
 login()
 time.sleep(5)
