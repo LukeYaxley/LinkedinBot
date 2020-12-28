@@ -1,8 +1,12 @@
 import time
+
+import selenium
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+
 driver = webdriver.Firefox()
 driver.get("https://www.linkedin.com")
+
 
 def login():
     username = driver.find_element_by_id("session_key")
@@ -21,18 +25,24 @@ def login():
 def main():
     clicked_buttons = []
     buttons = driver.find_elements_by_class_name("mt2")
-    for i in range(16):
-        if buttons[i-1].id in clicked_buttons:
-            continue
-        else:
-            clicked_buttons.append(buttons[i-1].id)
-            buttons[i-1].click()
-    time.sleep(1)
-    driver.refresh()
+    try:
+        for i in range(16):
+            if buttons[i - 1].id in clicked_buttons:
+                continue
+            else:
+                clicked_buttons.append(buttons[i - 1].id)
+                buttons[i - 1].click()
+        time.sleep(1)
+        driver.refresh()
+    except IndexError:
+        driver.refresh()
 
 
 login()
 time.sleep(5)
 while __name__ == "__main__":
-    main()
-    time.sleep(4)
+    try:
+        main()
+        time.sleep(4)
+    except selenium.common.exceptions.ElementClickInterceptedException:
+        break
